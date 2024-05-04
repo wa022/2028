@@ -5,66 +5,80 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>مراجعاتي</title>
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
- <style>
-    body {
-      font-family: Arial, sans-serif;
-      margin: 0;
-      padding: 20px;
-      background-color: #f5f2e6; /* Orange theme */
-    }
+  <style>
+body {
+  font-family: Arial, sans-serif;
+  margin: 0;
+  padding: 20px;
+  background-color: #f5f2e6; /* Orange theme */
+}
 
-    .container {
-      max-width: 1000px;
-      margin: 0 auto;
-    }
+.container {
+  max-width: 1000px;
+  margin: 0 auto;
+}
 
-    .book {
-      margin-bottom: 20px;
-      border: 1px solid #ddd;
-      padding: 10px;
-      border-radius: 5px;
-      display: inline-block; /* Display books side-by-side */
-      margin: 10px;
-      width: calc(33% - 20px); /* Adjust width for 3 columns */
-      box-sizing: border-box; /* Include padding in width calculation */
-    }
+.book {
+  margin-bottom: 20px;
+  border: 1px solid #ddd;
+  padding: 10px;
+  border-radius: 5px;
+  box-sizing: border-box;
+  text-align: center; /* Center text within book elements */
+  display: inline-block; /* Display books side-by-side */
+  margin: 10px;
+}
 
-    /* Adjust for smaller screens (less than 768px) */
-    @media (max-width: 768px) {
-      .book {
-        width: 50%;
-      }
-    }
+/* Default layout for 4 columns */
+@media (min-width: 768px) {
+  .book {
+    width: calc(25% - 20px); /* Adjust width for 4 columns */
+  }
+}
 
-    /* Adjust for even smaller screens (less than 480px) */
-    @media (max-width: 480px) {
-      .book {
-        width: 100%;
-      }
-    }
+/* Adjust for smaller screens (less than 768px) */
+@media (max-width: 768px) {
+  .book {
+    width: calc(50% - 20px); /* Adjust width for 2 columns */
+  }
+}
 
-    .book img {
-      width: 100%; /* Responsive image width */
-      height: auto;
-      margin-right: 10px;
-    }
+/* Adjust for even smaller screens (less than 480px) */
+@media (max-width: 480px) {
+  .book {
+    width: 100%; /* Adjust width for 1 column */
+  }
+}
 
-    .view-book-btn {
-      padding: 5px 10px;
-      background-color: #e74c3c; /* Orange button color */
-      color: white;
-      border: none;
-      border-radius: 5px;
-      cursor: pointer;
-    }
+.book img {
+  width: 100%; /* Make images responsive to container width */
+  height: 350px; /* Set a fixed height for all images */
+  object-fit: cover; /* Crop images to fit the container */
+}
 
-    h3 {
-      color: #85640a; /* Darker orange for headings */
-    }
+.view-book-btn {
+  padding: 5px 10px;
+  background-color: #e74c3c; /* Orange button color */
+  color: white;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  margin-top: 10px;
+  display: block; /* Make button a block element */
+  margin-left: auto;
+  margin-right: auto;
+  width: 50%; /* Adjust button width */
+}
+
+h3 {
+  color: #85640a; /* Darker orange for headings */
+  margin-bottom: 20px; /* Add bottom margin */
+}
+
   </style>
 </head>
 <body>
-  <section id="results-container">
+  <section id="results-container" class="container">
     <h3>مراجعاتي</h3>
     <div id="results"></div>
   </section>
@@ -103,6 +117,9 @@
         }
       });
     });
-  </script>
+
+</script>
+
+
 </body>
 </html>
