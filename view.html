@@ -3,118 +3,27 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>عرض الكتاب</title>
-  <style>
-    /* إضافة بعض التصميمات حسب رغبتك */
-    body {
-      font-family: Arial, sans-serif;
-      margin: 0;
-      padding: 20px;
-    }
-
-    .book-details {
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-    }
-
-    .book-cover {
-      width: 200px;
-      height: auto;
-      margin-bottom: 10px;
-    }
-
-    .book-title {
-      font-size: 24px;
-      margin-bottom: 10px;
-    }
-
-    .book-info {
-      margin-bottom: 10px;
-    }
-
-    .book-info label {
-      display: block;
-      margin-bottom: 5px;
-      font-weight: bold;
-    }
-  </style>
+  <title>تفاصيل الكتاب</title>
 </head>
 <body>
-  <div class="book-details">
-    <img src="" alt="غلاف الكتاب" class="book-cover">
-    <h2 class="book-title"></h2>
-
-    <div class="book-info">
-      <label for="author">اسم الكاتب:</label>
-      <span id="author"></span>
-    </div>
-
-    <div class="book-info">
-      <label for="date">تاريخ النشر:</label>
-      <span id="date"></span>
-    </div>
-
-    <div class="book-info">
-      <label for="type">النوع:</label>
-      <span id="type"></span>
-    </div>
-
-    <div class="book-info">
-      <label for="review">مراجعتي للكتاب:</label>
-      <p id="review"></p>
-    </div>
+  <h1>تفاصيل الكتاب</h1>
+  <div id="book-details">
+    <h2 id="book-title"></h2>
+    <img id="book-cover" src="" alt="غلاف الكتاب">
+    <p id="author"></p>
   </div>
 
   <script>
- $(document).ready(function(){
+    $(document).ready(function(){
+      var urlParams = new URLSearchParams(window.location.search);
+      var bookTitle = urlParams.get('title');
+      var bookCover = urlParams.get('cover');
+      var author = urlParams.get('author');
 
-  // استلام معلومات الكتاب من عنوان URL
-  var urlParams = new URLSearchParams(window.location.search);
-  var bookTitle = urlParams.get('title');
-  var bookCover = urlParams.get('cover');
-  var author = urlParams.get('author');
-
-  // عرض معلومات الكتاب الأساسية
-  $('.book-cover').attr('src', bookCover);
-  $('.book-title').text(bookTitle);
-  $('#author').text(author);
-
-  // استدعاء بيانات الكتاب من صفحة index.html
-  $.ajax({
-    url: "index.html", // تأكد من تغيير عنوان URL إلى عنوان index.html
-    method: "GET",
-    success: function(data){
-      // معالجة بيانات الكتاب
-      processBookData(data.values); // استدعاء دالة معالجة البيانات
-    }
-  });
-
-  // معالجة بيانات الكتاب واستخراج المعلومات
-  function processBookData(booksData){
-    // ابحث عن الكتاب في البيانات المستردة
-    var book = booksData.find(function(book){
-      return book[0] === bookTitle; // مقارنة عنوان الكتاب
+      $('#book-title').text(bookTitle);
+      $('#book-cover').attr('src', bookCover);
+      $('#author').text('اسم الكاتب: ' + author);
     });
-
-    if (book) {
-      // استخراج معلومات الكتاب من 'book'
-      var date = book[5];
-      var type = book[4];
-      var review = book[6];
-
-      // عرض المعلومات المستخرجة
-      $('#date').text(date);
-      $('#type').text(type);
-      $('#review').text(review);
-    } else {
-      // عرض رسالة خطأ إذا لم يتم العثور على الكتاب
-      console.error("لم يتم العثور على الكتاب: " + bookTitle);
-    }
-  }
-
-});
-
   </script>
 </body>
 </html>
