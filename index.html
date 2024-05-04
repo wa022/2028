@@ -59,46 +59,6 @@
         width: calc(100% - 20px); /* عرض العناصر بالمنتصف مع مسافة 10 بكسل من الجهتين */
       }
     }
-
-    .book img {
-      width: 100%; /* Make images responsive to container width */
-      height: 350px; /* Set a fixed height for all images */
-      object-fit: cover; /* Crop images to fit the container */
-    }
-
-    .view-book-btn {
-      padding: 5px 10px;
-      background-color: #e74c3c; /* Orange button color */
-      color: white;
-      border: none;
-      border-radius: 40px;
-      cursor: pointer;
-      margin-top: 10px;
-      display: block; /* Make button a block element */
-      margin-left: auto;
-      margin-right: auto;
-      width: 50%; /* Adjust button width */
-    }
-
-    h3 {
-      color: #85640a; /* Darker orange for headings */
-      margin-bottom: 20px; /* Add bottom margin */
-      text-decoration: none; /* Remove underline from book titles */
-    }
-
-    /* تغيير لون العناصر عند تمرير المؤشر (hover) */
-    .book:hover {
-      border-color: #e74c3c; /* تغيير لون الحدود للكتاب */
-    }
-
-    .book:hover h3 {
-      color: #e74c3c; /* تغيير لون عنوان الكتاب */
-    }
-
-    .book:hover .view-book-btn {
-      background-color: red; /* تغيير لون زر المراجعة */
-    }
-
   </style>
 </head>
 <body>
@@ -120,25 +80,13 @@
           var output = '';
           $.each(books, function(index, book){
             output += '<div class="book">';
-            output += '<a style="text-decoration: none;" href="view.html?title=' + encodeURIComponent(book[0])  + encodeURIComponent(book[6]) + '">';
+            output += '<a href="view.html?title=' + encodeURIComponent(book[0]) + '">';
             output += '<h3>' + book[0] + '</h3>'; // عنوان الكتاب
-            output += '<img src="' + book[1] + '" alt="غلاف الكتاب">'; // غلاف الكتاب
             output += '</a>';
-            output += '<button class="view-book-btn">مراجعتي للكتاب</button>';
             output += '</div>';
           });
 
           $('#results').html(output);
-
-          $('.view-book-btn').click(function(){
-            var bookTitle = $(this).prev().text();
-            var bookCover = $(this).prev().prev().attr('src');
-            var author = $(this).prev().data('author');
-            var category = $(this).prev().data('category');
-            var review = $(this).prev().data('review');
-            var summary = $(this).prev().data('summary');
-            window.location.href = 'view.html?title=';
-          });
         }
       });
     });
