@@ -19,20 +19,41 @@
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
   <script>
     $(document).ready(function(){
+      // استرجاع قيمة الاسم من عنوان الصفحة
       var urlParams = new URLSearchParams(window.location.search);
       var bookTitle = decodeURIComponent(urlParams.get('title'));
-      var bookCover = decodeURIComponent(urlParams.get('cover'));
-      var author = decodeURIComponent(urlParams.get('author'));
-      var category = decodeURIComponent(urlParams.get('category'));
-      var review = decodeURIComponent(urlParams.get('review'));
-      var summary = decodeURIComponent(urlParams.get('summary'));
 
-      $('#book-title').text(bookTitle);
-      $('#book-cover').attr('src', bookCover);
-      $('#author').text('اسم الكاتب: ' + author);
-      $('#category').text('النوع: ' + category);
-      $('#review').text('مراجعتي: ' + review);
-      $('#summary').text('الملخص: ' + summary);
+      // جلب البيانات من مصدر البيانات المحدد
+      $.ajax({
+        url: "https://sheets.googleapis.com/v4/spreadsheets/1eFNyOTc1sjFwoBYA5FzB4f-ecGs0w-COjOZ_mXLWBbo/values/Sheet1!A1:I100?key=AIzaSyBhiqVypmyLHYPmqZYtvdSvxEopcLZBdYU",
+        method: "GET",
+        success: function(data){
+          var books = data.values;
+          books.shift(); 
+
+          // البحث عن الكتاب باستخدام اسمه
+          var foundBook = books.find(function(book){
+            return book[0] === bookTitle;
+          });
+
+          // عرض البيانات إذا تم العثور على الكتاب
+          if(foundBook){
+            $('#book-title').text(foundBook[0]);
+            $('#book-cover').attr('src', foundBook[1]);
+            $('#author').text('اسم الكاتب: ' + foundBook[2]);
+            $('#category').text('النوع: ' + foundBook[4]);
+            $('#review').text('مراجعتي: ' + foundBook[7]);
+            $('#summary').text('الملخص: ' + foundBook[6]);
+          } else {
+            // إذا لم يتم العثور على الكتاب
+            $('#book-details').html('<p>لم يتم العثور على تفاصيل الكتاب.</p>');
+          }
+        },
+        error: function(){
+          // في حالة حدوث خطأ أثناء جلب البيانات
+          $('#book-details').html('<p>حدث خطأ أثناء جلب تفاصيل الكتاب.</p>');
+        }
+      });
     });
   </script>
 </body>
