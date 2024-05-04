@@ -11,18 +11,28 @@
     <h2 id="book-title"></h2>
     <img id="book-cover" src="" alt="غلاف الكتاب">
     <p id="author"></p>
+    <p id="category"></p>
+    <p id="review"></p>
+    <p id="summary"></p>
   </div>
 
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
   <script>
     $(document).ready(function(){
       var urlParams = new URLSearchParams(window.location.search);
-      var bookTitle = urlParams.get('title');
-      var bookCover = urlParams.get('cover');
-      var author = urlParams.get('author');
+      var bookTitle = decodeURIComponent(urlParams.get('title'));
+      var bookCover = decodeURIComponent(urlParams.get('cover'));
+      var author = decodeURIComponent(urlParams.get('author'));
+      var category = decodeURIComponent(urlParams.get('category'));
+      var review = decodeURIComponent(urlParams.get('review'));
+      var summary = decodeURIComponent(urlParams.get('summary'));
 
       $('#book-title').text(bookTitle);
       $('#book-cover').attr('src', bookCover);
       $('#author').text('اسم الكاتب: ' + author);
+      $('#category').text('النوع: ' + category);
+      $('#review').text('مراجعتي: ' + review);
+      $('#summary').text('الملخص: ' + summary);
     });
   </script>
 </body>
