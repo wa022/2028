@@ -67,18 +67,54 @@
   </div>
 
   <script>
-    // استلام معلومات الكتاب من عنوان URL
-    var urlParams = new URLSearchParams(window.location.search);
-    var bookTitle = urlParams.get('title');
-    var bookCover = urlParams.get('cover');
-    var author = urlParams.get('author');
+ $(document).ready(function(){
 
-    // عرض معلومات الكتاب
-    $('.book-cover').attr('src', bookCover);
-    $('.book-title').text(bookTitle);
-    $('#author').text(author);
+  // استلام معلومات الكتاب من عنوان URL
+  var urlParams = new URLSearchParams(window.location.search);
+  var bookTitle = urlParams.get('title');
+  var bookCover = urlParams.get('cover');
+  var author = urlParams.get('author');
 
-    // ... (استكمال الكود لعرض باقي معلومات الكتاب)
+  // عرض معلومات الكتاب الأساسية
+  $('.book-cover').attr('src', bookCover);
+  $('.book-title').text(bookTitle);
+  $('#author').text(author);
+
+  // استدعاء بيانات الكتاب من صفحة index.html
+  $.ajax({
+    url: "index.html", // تأكد من تغيير عنوان URL إلى عنوان index.html
+    method: "GET",
+    success: function(data){
+      // معالجة بيانات الكتاب
+      processBookData(data.values); // استدعاء دالة معالجة البيانات
+    }
+  });
+
+  // معالجة بيانات الكتاب واستخراج المعلومات
+  function processBookData(booksData){
+    // ابحث عن الكتاب في البيانات المستردة
+    var book = booksData.find(function(book){
+      return book[0] === bookTitle; // مقارنة عنوان الكتاب
+    });
+
+    if (book) {
+      // استخراج معلومات الكتاب من 'book'
+      var date = book[5];
+      var type = book[4];
+      var review = book[6];
+
+      // عرض المعلومات المستخرجة
+      $('#date').text(date);
+      $('#type').text(type);
+      $('#review').text(review);
+    } else {
+      // عرض رسالة خطأ إذا لم يتم العثور على الكتاب
+      console.error("لم يتم العثور على الكتاب: " + bookTitle);
+    }
+  }
+
+});
+
   </script>
 </body>
 </html>
