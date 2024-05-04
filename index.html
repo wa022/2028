@@ -120,7 +120,7 @@
           var output = '';
           $.each(books, function(index, book){
             output += '<div class="book">';
-            output += '<a style="text-decoration: none;" href="view.html?title=' + encodeURIComponent(book[0]) + '&cover=' + encodeURIComponent(book[1]) + '&author=' + encodeURIComponent(book[2]) + '&category=' + encodeURIComponent(book[4]) + '&review=' + encodeURIComponent(book[5]) + '&summary=' + encodeURIComponent(book[6]) + '">';
+            output += '<a style="text-decoration: none;" href="view.html?title=' + encodeURIComponent(book[0])  + encodeURIComponent(book[6]) + '">';
             output += '<h3>' + book[0] + '</h3>'; // عنوان الكتاب
             output += '<img src="' + book[1] + '" alt="غلاف الكتاب">'; // غلاف الكتاب
             output += '</a>';
