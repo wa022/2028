@@ -6,27 +6,10 @@
   <title>مراجعاتي</title>
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
   <style>
-    /* إضافة بعض التصميمات حسب رغبتك */
     body {
       font-family: Arial, sans-serif;
       margin: 0;
       padding: 20px;
-    }
-
-    #results-container {
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-    }
-
-    #search-box {
-      width: 200px;
-      padding: 5px;
-      margin-bottom: 10px;
-    }
-
-    #categories-dropdown-top {
-      margin-bottom: 10px;
     }
 
     .book {
@@ -55,78 +38,40 @@
 <body>
   <section id="results-container">
     <h3>مراجعاتي</h3>
-    <input type="text" id="search-box" placeholder="ابحث عن رواية">
-  </section>
-
-  <section id="results-container">
-    <select id="categories-dropdown-top">
-      <option value="all">الكل</option>
-    </select>
-    <div id="results">
-    </div>
+    <div id="results"></div>
   </section>
 
   <script>
     $(document).ready(function(){
-  $.ajax({
-    url: "https://sheets.googleapis.com/v4/spreadsheets/1eFNyOTc1sjFwoBYA5FzB4f-ecGs0w-COjOZ_mXLWBbo/values/Sheet1!A1:I100?key=AIzaSyBhiqVypmyLHYPmqZYtvdSvxEopcLZBdYU",
-    method: "GET",
-    success: function(data){
-      // عمل نموذج يحتوي على البيانات المطلوبة
-      var books = data.values;
-      books.shift(); // يزيل رأس الجدول (عناوين الأعمدة)
+      $.ajax({
+        url: "https://sheets.googleapis.com/v4/spreadsheets/1eFNyOTc1sjFwoBYA5FzB4f-ecGs0w-COjOZ_mXLWBbo/values/Sheet1!A1:I100?key=AIzaSyBhiqVypmyLHYPmqZYtvdSvxEopcLZBdYU",
+        method: "GET",
+        success: function(data){
+          var books = data.values;
+          books.shift(); 
 
-      // جمع الفئات المتاحة
-      var categories = [];
-      $.each(books, function(index, book){
-        if (!categories.includes(book[4])) {
-          categories.push(book[4]);
+          var output = '';
+          $.each(books, function(index, book){
+            output += '<div class="book">';
+            output += '<a href="view.html?title=' + book[0] + '&cover=' + book[1] + '&author=' + book[2] + '">';
+            output += '<h3>' + book[0] + '</h3>'; // عنوان الكتاب
+            output += '<img src="' + book[1] + '" alt="غلاف الكتاب">'; // غلاف الكتاب
+            output += '</a>';
+            output += '<button class="view-book-btn">مراجعتي للكتاب</button>';
+            output += '</div>';
+          });
+
+          $('#results').html(output);
+
+          $('.view-book-btn').click(function(){
+            var bookTitle = $(this).prev().text();
+            var bookCover = $(this).prev().prev().attr('src');
+            var author = $(this).prev().data('author');
+            window.location.href = 'view.html?title=' + bookTitle + '&cover=' + bookCover + '&author=' + author;
+          });
         }
       });
-
-      // تحديث قائمة الفئات المنسدلة
-      $.each(categories, function(index, category){
-        $('#categories-dropdown-top').append('<option value="' + category + '">' + category + '</option>');
-      });
-
-      // تجهيز البيانات وتنظيمها بشكل div
-      var output = '';
-      $.each(books, function(index, book){
-        output += '<div class="book ' + book[4] + '">';
-        output += '<h2>' + book[0] + '</h2>'; // عنوان الكتاب
-        output += '<img src="' + book[1] + '" alt="غلاف الكتاب">'; // غلاف الكتاب
-        output += '<p><strong>اسم الكاتب: </strong>' + book[2] + '</p>'; // اسم الكاتب
-        output += '<button class="view-book-btn" data-book-title="' + book[0] + '" data-book-cover="' + book[1] + '" data-author="' + book[2] + '">مراجعتي للكتاب</button>';
-        output += '</div>';
-      });
-
-      // إدراج البيانات في الصفحة
-      $('#results').html(output);
-
-      // تغيير النتائج عند تحديد فئة جديدة من القائمة المنسدلة
-      $('#categories-dropdown-top').on('change', function(){
-        var selectedCategory = $(this).val(); // الفئة المحددة
-        if(selectedCategory !== 'all'){
-          $('.book').hide(); // إخفاء جميع الكتب
-          $('.' + selectedCategory).show(); // إظهار الكتب التي تنتمي للفئة المحددة
-        } else {
-          $('.book').show(); // إظهار جميع الكتب عند تحديد "الكل"
-        }
-      });
-
-      // معالجة ضغط زر "مراجعتي للكتاب"
-      $('.view-book-btn').click(function(){
-        var bookTitle = $(this).data('book-title');
-        var bookCover = $(this).data('book-cover');
-        var author = $(this).data('author');
-
-        // فتح صفحة view.html مع معلومات الكتاب
-        window.location.href = 'view.html?title=' + bookTitle + '&cover=' + bookCover + '&author=' + author;
-      });
-    }
-  });
-});
-
-  </script>
+    });
+  </script>
 </body>
-</html>    
+</html>
