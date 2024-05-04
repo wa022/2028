@@ -5,11 +5,17 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>مراجعاتي</title>
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
-  <style>
+ <style>
     body {
       font-family: Arial, sans-serif;
       margin: 0;
       padding: 20px;
+      background-color: #f5f2e6; /* Orange theme */
+    }
+
+    .container {
+      max-width: 1000px;
+      margin: 0 auto;
     }
 
     .book {
@@ -17,21 +23,43 @@
       border: 1px solid #ddd;
       padding: 10px;
       border-radius: 5px;
+      display: inline-block; /* Display books side-by-side */
+      margin: 10px;
+      width: calc(33% - 20px); /* Adjust width for 3 columns */
+      box-sizing: border-box; /* Include padding in width calculation */
+    }
+
+    /* Adjust for smaller screens (less than 768px) */
+    @media (max-width: 768px) {
+      .book {
+        width: 50%;
+      }
+    }
+
+    /* Adjust for even smaller screens (less than 480px) */
+    @media (max-width: 480px) {
+      .book {
+        width: 100%;
+      }
     }
 
     .book img {
-      width: 100px;
+      width: 100%; /* Responsive image width */
       height: auto;
       margin-right: 10px;
     }
 
     .view-book-btn {
       padding: 5px 10px;
-      background-color: #007bff;
+      background-color: #e74c3c; /* Orange button color */
       color: white;
       border: none;
       border-radius: 5px;
       cursor: pointer;
+    }
+
+    h3 {
+      color: #85640a; /* Darker orange for headings */
     }
   </style>
 </head>
