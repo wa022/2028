@@ -6,81 +6,106 @@
   <title>مراجعاتي</title>
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
   <style>
-body {
-  font-family: Arial, sans-serif;
-  margin: 0;
-  padding: 20px;
-  background-color: #f5f2e6; /* Orange theme */
-}
+    body {
+      font-family: Arial, sans-serif;
+      margin: 0;
+      padding: 20px;
+      background-color: #f5f2e6; /* Orange theme */
+    }
 
-.container {
-  max-width: 1000px;
-  margin: 0 auto;
-}
+    .container {
+      max-width: 1000px;
+      margin: 0 auto;
+    }
 
-.book {
-  margin-bottom: 20px;
-  border: 1px solid #ddd;
-  padding: 10px;
-  border-radius: 5px;
-  box-sizing: border-box;
-  text-align: center; /* Center text within book elements */
-  display: inline-block; /* Display books side-by-side */
-  margin: 10px;
-}
+    #results-container {
+      display: flex; /* استخدم Flexbox للمركز */
+      flex-wrap: wrap; /* للسماح بالتفاف العناصر عند الحاجة */
+      justify-content: center; /* محاذاة العناصر في الوسط */
+    }
 
-/* Default layout for 4 columns */
-@media (min-width: 768px) {
-  .book {
-    width: calc(25% - 20px); /* Adjust width for 4 columns */
-  }
-}
+    .book {
+      margin-bottom: 20px;
+      border: 1px solid #ddd;
+      padding: 10px;
+      border-radius: 5px;
+      box-sizing: border-box;
+      text-align: center; /* Center text within book elements */
+      display: inline-block; /* Display books side-by-side */
+      margin: 10px;
+    }
 
-/* Adjust for smaller screens (less than 768px) */
-@media (max-width: 768px) {
-  .book {
-    width: calc(50% - 20px); /* Adjust width for 2 columns */
-  }
-}
+    /* Adjust for smaller screens (less than 992px) */
+    @media (max-width: 991px) {
+      .book {
+        width: calc(33.333% - 20px); /* Adjust width for 3 columns */
+      }
+    }
 
-/* Adjust for even smaller screens (less than 480px) */
-@media (max-width: 480px) {
-  .book {
-    width: 100%; /* Adjust width for 1 column */
-  }
-}
+    /* Adjust for smaller screens (less than 768px) */
+    @media (max-width: 767px) {
+      .book {
+        width: calc(50% - 20px); /* Adjust width for 2 columns */
+      }
+    }
 
-.book img {
-  width: 100%; /* Make images responsive to container width */
-  height: 350px; /* Set a fixed height for all images */
-  object-fit: cover; /* Crop images to fit the container */
-}
+    /* Adjust for even smaller screens (less than 480px) */
+    @media (max-width: 480px) {
+      .container {
+        padding: 0 10px; /* إضافة هامش يمين ويسار بـ 10 بكسل */
+      }
 
-.view-book-btn {
-  padding: 5px 10px;
-  background-color: #e74c3c; /* Orange button color */
-  color: white;
-  border: none;
-  border-radius: 5px;
-  cursor: pointer;
-  margin-top: 10px;
-  display: block; /* Make button a block element */
-  margin-left: auto;
-  margin-right: auto;
-  width: 50%; /* Adjust button width */
-}
+      .book {
+        width: calc(100% - 20px); /* عرض العناصر بالمنتصف مع مسافة 10 بكسل من الجهتين */
+      }
+    }
 
-h3 {
-  color: #85640a; /* Darker orange for headings */
-  margin-bottom: 20px; /* Add bottom margin */
-}
+    .book img {
+      width: 100%; /* Make images responsive to container width */
+      height: 350px; /* Set a fixed height for all images */
+      object-fit: cover; /* Crop images to fit the container */
+    }
+
+    .view-book-btn {
+      padding: 5px 10px;
+      background-color: #e74c3c; /* Orange button color */
+      color: white;
+      border: none;
+      border-radius: 40px;
+      cursor: pointer;
+      margin-top: 10px;
+      display: block; /* Make button a block element */
+      margin-left: auto;
+      margin-right: auto;
+      width: 50%; /* Adjust button width */
+    }
+
+    h3 {
+      color: #85640a; /* Darker orange for headings */
+      margin-bottom: 20px; /* Add bottom margin */
+      text-decoration: none; /* Remove underline from book titles */
+    }
+
+    /* تغيير لون العناصر عند تمرير المؤشر (hover) */
+    .book:hover {
+      border-color: #e74c3c; /* تغيير لون الحدود للكتاب */
+    }
+
+    .book:hover h3 {
+      color: #e74c3c; /* تغيير لون عنوان الكتاب */
+    }
+
+    .book:hover .view-book-btn {
+      background-color: red; /* تغيير لون زر المراجعة */
+    }
 
   </style>
 </head>
 <body>
   <section id="results-container" class="container">
-    <h3>مراجعاتي</h3>
+
     <div id="results"></div>
+
   </section>
 
   <script>
@@ -95,7 +120,7 @@ h3 {
           var output = '';
           $.each(books, function(index, book){
             output += '<div class="book">';
-            output += '<a href="view.html?title=' + encodeURIComponent(book[0]) + '&cover=' + encodeURIComponent(book[1]) + '&author=' + encodeURIComponent(book[2]) + '&category=' + encodeURIComponent(book[4]) + '&review=' + encodeURIComponent(book[5]) + '&summary=' + encodeURIComponent(book[6]) + '">';
+            output += '<a style="text-decoration: none;" href="view.html?title=' + encodeURIComponent(book[0]) + '&cover=' + encodeURIComponent(book[1]) + '&author=' + encodeURIComponent(book[2]) + '&category=' + encodeURIComponent(book[4]) + '&review=' + encodeURIComponent(book[5]) + '&summary=' + encodeURIComponent(book[6]) + '">';
             output += '<h3>' + book[0] + '</h3>'; // عنوان الكتاب
             output += '<img src="' + book[1] + '" alt="غلاف الكتاب">'; // غلاف الكتاب
             output += '</a>';
@@ -118,8 +143,7 @@ h3 {
       });
     });
 
-</script>
-
+  </script>
 
 </body>
 </html>
