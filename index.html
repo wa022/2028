@@ -53,7 +53,7 @@
           var output = '';
           $.each(books, function(index, book){
             output += '<div class="book">';
-            output += '<a href="view.html?title=' + book[0] + '&cover=' + book[1] + '&author=' + book[2] + '">';
+            output += '<a href="view.html?title=' + encodeURIComponent(book[0]) + '&cover=' + encodeURIComponent(book[1]) + '&author=' + encodeURIComponent(book[2]) + '&category=' + encodeURIComponent(book[4]) + '&review=' + encodeURIComponent(book[5]) + '&summary=' + encodeURIComponent(book[6]) + '">';
             output += '<h3>' + book[0] + '</h3>'; // عنوان الكتاب
             output += '<img src="' + book[1] + '" alt="غلاف الكتاب">'; // غلاف الكتاب
             output += '</a>';
@@ -67,7 +67,10 @@
             var bookTitle = $(this).prev().text();
             var bookCover = $(this).prev().prev().attr('src');
             var author = $(this).prev().data('author');
-            window.location.href = 'view.html?title=' + bookTitle + '&cover=' + bookCover + '&author=' + author;
+            var category = $(this).prev().data('category');
+            var review = $(this).prev().data('review');
+            var summary = $(this).prev().data('summary');
+            window.location.href = 'view.html?title=' + encodeURIComponent(bookTitle) + '&cover=' + encodeURIComponent(bookCover) + '&author=' + encodeURIComponent(author) + '&category=' + encodeURIComponent(category) + '&review=' + encodeURIComponent(review) + '&summary=' + encodeURIComponent(summary);
           });
         }
       });
