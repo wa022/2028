@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>عرض الكتاب</title>
+  <style>
+    /* إضافة بعض التصميمات حسب رغبتك */
+    body {
+      font-family: Arial, sans-serif;
+      margin: 0;
+      padding: 20px;
+    }
+
+    .book-details {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+    }
+
+    .book-cover {
+      width: 200px;
+      height: auto;
+      margin-bottom: 10px;
+    }
+
+    .book-title {
+      font-size: 24px;
+      margin-bottom: 10px;
+    }
+
+    .book-info {
+      margin-bottom: 10px;
+    }
+
+    .book-info label {
+      display: block;
+      margin-bottom: 5px;
+      font-weight: bold;
+    }
+  </style>
+</head>
+<body>
+  <div class="book-details">
+    <img src="" alt="غلاف الكتاب" class="book-cover">
+    <h2 class="book-title"></h2>
+
+    <div class="book-info">
+      <label for="author">اسم الكاتب:</label>
+      <span id="author"></span>
+    </div>
+
+    <div class="book-info">
+      <label for="date">تاريخ النشر:</label>
+      <span id="date"></span>
+    </div>
+
+    <div class="book-info">
+      <label for="type">النوع:</label>
+      <span id="type"></span>
+    </div>
+
+    <div class="book-info">
+      <label for="review">مراجعتي للكتاب:</label>
+      <p id="review"></p>
+    </div>
+  </div>
+
+  <script>
+    // استلام معلومات الكتاب من عنوان URL
+    var urlParams = new URLSearchParams(window.location.search);
+    var bookTitle = urlParams.get('title');
+    var bookCover = urlParams.get('cover');
+    var author = urlParams.get('author');
+
+    // عرض معلومات الكتاب
+    $('.book-cover').attr('src', bookCover);
+    $('.book-title').text(bookTitle);
+    $('#author').text(author);
+
+    // ... (استكمال الكود لعرض باقي معلومات الكتاب)
+  </script>
+</body>
+</html>
