@@ -6,63 +6,204 @@
     <title>نتائج البحث</title>
 </head>
 <style>
+ body {
+        font-family: Arial, sans-serif;
+        margin: 0;
+        
+        background-color: #f5f2e6; /* Orange theme */
+        direction: rtl; /* RTL direction for body */
+    }
 
-/* style.css */
+    .container {
+        max-width: 1000px;
+        margin: 0 auto;
+    }
 
-body {
-  font-family: sans-serif;
-  margin: 0;
-  padding: 20px;
-}
+    #results-container {
+        display: flex; /* استخدم Flexbox للمركز */
+        flex-wrap: wrap; /* للسماح بالتفاف العناصر عند الحاجة */
+        justify-content: center; /* محاذاة العناصر في الوسط */
+    }
 
-#results-container {
-  display: flex;
-  flex-wrap: wrap;
-  justify-content: space-between;
-}
+    .book {
+        margin-bottom: 20px;
+        border: 1px solid #ddd;
+        padding: 10px;
+        border-radius: 5px;
+        box-sizing: border-box;
+        text-align: center; /* Center text within book elements */
+        display: inline-block; /* Display books side-by-side */
+        margin: 10px;
+    }
 
-.book {
-  width: 25%;
-  margin-bottom: 20px;
-  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
-}
+    /* Adjust for smaller screens (less than 992px) */
+    @media (max-width: 991px) {
+        .book {
+            width: calc(33.333% - 20px); /* Adjust width for 3 columns */
+        }
+    }
 
-.book a {
-  text-decoration: none;
-  color: #333;
-}
+    /* Adjust for smaller screens (less than 768px) */
+    @media (max-width: 767px) {
+        .book {
+            width: calc(50% - 20px); /* Adjust width for 2 columns */
+        }
+    }
 
-.book h3 {
-  margin: 10px 0;
-}
+    /* Adjust for even smaller screens (less than 480px) */
+    @media (max-width: 480px) {
+        .container {
+            padding: 0 10px; /* إضافة هامش يمين ويسار بـ 10 بكسل */
+        }
 
-.book img {
-  width: 100%;
-  height: auto;
-}
+        .book {
+            width: calc(100% - 20px); /* عرض العناصر بالمنتصف مع مسافة 10 بكسل من الجهتين */
+        }
+    }
 
-.view-book-btn {
-  display: block;
-  margin-top: 10px;
-  padding: 10px 20px;
-  background-color: #007bff;
-  color: #fff;
-  border: none;
-  cursor: pointer;
-}
+    .book img {
+        width: 100%; /* Make images responsive to container width */
+        height: 350px; /* Set a fixed height for all images */
+        object-fit: cover; /* Crop images to fit the container */
+    }
 
-.view-book-btn:hover {
-  background-color: #0056b3;
-}
+    .view-book-btn {
+        padding: 5px 10px;
+        background-color: #e74c3c; /* Orange button color */
+        color: white;
+        border: none;
+        border-radius: 40px;
+        cursor: pointer;
+        margin-top: 10px;
+        display: block; /* Make button a block element */
+        margin-left: auto;
+        margin-right: auto;
+        width: 50%; /* Adjust button width */
+    }
 
-.book .more-info {
-  display: none;
-}
+    h3 {
+        color: #85640a; /* Darker orange for headings */
+        margin-bottom: 20px; /* Add bottom margin */
+        text-decoration: none; /* Remove underline from book titles */
+    }
 
-.book:hover .more-info {
-  display: block;
-}
+    /* تغيير لون العناصر عند تمرير المؤشر (hover) */
+    .book:hover {
+        border-color: #e74c3c; /* تغيير لون الحدود للكتاب */
+    }
 
+    .book:hover h3 {
+        color: #e74c3c; /* تغيير لون عنوان الكتاب */
+    }
+
+    .book:hover .view-book-btn {
+        background-color: red; /* تغيير لون زر المراجعة */
+    }
+
+    /* Second Style Section */
+
+    header {
+        background-color: #fdffe5;
+        color: #fff;
+        padding: 20px;
+        display: flex;
+        align-items: center;
+    }
+
+    .logo {
+        width: 100px;
+        height: auto;
+        margin-left: 10%;
+        margin-right: 5%;
+    }
+
+    nav {
+        display: flex;
+        gap: 20px;
+        list-style-type: none;
+        margin: 0;
+        padding: 0;
+    }
+
+    .nav-a {
+        text-decoration: none;
+    }
+
+    nav.open {
+        display: flex;
+        flex-direction: column;
+        position: absolute;
+        top: 140px;
+        left: 0;
+        right: 0;
+        background-color: #fff;
+        /* border: 1px solid #333; */
+        border-radius: 0px;
+        padding: 10px;
+        height: 30%;
+    }
+
+    nav.open a {
+        color: #000;
+    }
+
+    .menu-icon {
+        display: none;
+        width: 25px;
+        height: 25px;
+        cursor: pointer;
+        background-image: url('https://wa022.github.io/2028/menu.png');
+        background-size: cover;
+    }
+
+    .search-box {
+        text-align: center;
+        padding: 20px;
+    }
+
+    @media screen and (max-width: 576px) {
+        header {
+            flex-direction: row-reverse;
+        }
+
+        .logo {
+            margin-left: auto;
+            margin-right: 10px;
+        }
+
+        nav {
+            display: none;
+        }
+
+        .menu-icon {
+            display: block;
+        }
+
+        .search-box {
+            padding: 10px;
+        }
+    }
+
+    @media screen and (min-width: 577px) and (max-width: 768px) {
+        .logo {
+            margin-left: 5%;
+            margin-right: 10%;
+        }
+    }
+
+    @media screen and (min-width: 769px) and (max-width: 992px) {
+        .logo {
+            margin-left: 10%;
+            margin-right: 5%;
+        }
+    }
+
+    @media screen and (min-width: 993px) {
+        .logo {
+            margin-left: 10%;
+            margin-right: 5%;
+        }
+    }
 </style>
 
 
