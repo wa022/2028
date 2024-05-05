@@ -238,10 +238,19 @@
     
 
     <script>
-        function toggleMenu() {
-            const nav = document.querySelector('nav');
-            nav.classList.toggle('open');
+      function toggleMenu() {
+        const nav = document.querySelector('nav');
+        const menuIcon = document.querySelector('.menu-icon');
+
+        nav.classList.toggle('open');
+
+        // تغيير الصورة بناءً على حالة القائمة
+        if (nav.classList.contains('open')) {
+            menuIcon.style.backgroundImage = "url('https://wa022.github.io/2028/left-arrow.png')";
+        } else {
+            menuIcon.style.backgroundImage = "url('https://wa022.github.io/2028/menu.png')";
         }
+    }
       
       
       
