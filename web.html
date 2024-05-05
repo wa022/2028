@@ -1,0 +1,140 @@
+<!DOCTYPE html>
+<html lang="ar">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>صفحة متجاوبة</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            direction: rtl;
+        }
+
+        header {
+            background-color: #333;
+            color: #fff;
+            padding: 20px;
+            display: flex;
+            align-items: center;
+        }
+
+        .logo {
+            width: 100px;
+            height: auto;
+            margin-left: 10%;
+            margin-right: 5%;
+        }
+
+        nav {
+            display: flex;
+            gap: 20px;
+            list-style-type: none;
+            margin: 0;
+            padding: 0;
+        }
+
+        nav.open {
+    display: flex;
+    flex-direction: column;
+    position: absolute;
+    top: 140px;
+    left: 0;
+    background-color: #fff;
+    /* border: 1px solid #333; */
+    border-radius: 0px;
+    padding: 10px;
+    width: 90%;
+    height: 30%;
+        }
+
+        nav.open a {
+            color: #000;
+        }
+
+        .menu-icon {
+            display: none;
+            width: 30px;
+            height: 30px;
+            cursor: pointer;
+            background-image: url('https://wa022.github.io/2028/oumaima2.png');
+            background-size: cover;
+        }
+
+        .search-box {
+            text-align: center;
+            padding: 20px;
+        }
+
+        @media screen and (max-width: 576px) {
+            header {
+                flex-direction: row-reverse;
+            }
+
+            .logo {
+        margin-left: auto;
+        margin-right: 10px;
+            }
+
+            nav {
+                display: none;
+            }
+
+            .menu-icon {
+                display: block;
+            }
+
+            .search-box {
+                padding: 10px;
+            }
+        }
+
+        @media screen and (min-width: 577px) and (max-width: 768px) {
+            .logo {
+                margin-left: 5%;
+                margin-right: 10%;
+            }
+        }
+
+        @media screen and (min-width: 769px) and (max-width: 992px) {
+            .logo {
+                margin-left: 10%;
+                margin-right: 5%;
+            }
+        }
+
+        @media screen and (min-width: 993px) {
+            .logo {
+                margin-left: 10%;
+                margin-right: 5%;
+            }
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <div class="menu-icon" onclick="toggleMenu()"></div>
+        <img src="https://wa022.github.io/2028/oumaima.png" alt="شعار" class="logo">
+        <nav>
+            <a href="#">صفحة 1</a>
+            <a href="#">صفحة 2</a>
+            <a href="#">صفحة 3</a>
+        </nav>
+    </header>
+
+    <div class="search-box">
+        <input type="text" placeholder="ابحث هنا...">
+        <button>ابحث</button>
+    </div>
+
+    <!-- المحتوى الآخر يأتي هنا -->
+
+    <script>
+        function toggleMenu() {
+            const nav = document.querySelector('nav');
+            nav.classList.toggle('open');
+        }
+    </script>
+</body>
+</html>
