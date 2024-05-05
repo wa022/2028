@@ -5,6 +5,68 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>نتائج البحث</title>
 </head>
+<style>
+
+/* style.css */
+
+body {
+  font-family: sans-serif;
+  margin: 0;
+  padding: 20px;
+}
+
+#results-container {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+}
+
+.book {
+  width: 25%;
+  margin-bottom: 20px;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+}
+
+.book a {
+  text-decoration: none;
+  color: #333;
+}
+
+.book h3 {
+  margin: 10px 0;
+}
+
+.book img {
+  width: 100%;
+  height: auto;
+}
+
+.view-book-btn {
+  display: block;
+  margin-top: 10px;
+  padding: 10px 20px;
+  background-color: #007bff;
+  color: #fff;
+  border: none;
+  cursor: pointer;
+}
+
+.view-book-btn:hover {
+  background-color: #0056b3;
+}
+
+.book .more-info {
+  display: none;
+}
+
+.book:hover .more-info {
+  display: block;
+}
+
+</style>
+
+
+
 <body>
     <div id="results-container" class="container"></div>
 
