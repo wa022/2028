@@ -120,13 +120,13 @@
     
   </tr>
   <tr>
-    <td class="tg-0pky">عدد الصفحات<p id="pages"></p></td>
+    <td class="tg-0pky"><p id="pages"></p></td>
   </tr>
   <tr>
-    <td class="tg-0pky">النوع</td>
+    <td class="tg-0pky"><p id="category"></td>
   </tr>
   <tr>
-    <td class="tg-0pky">تقييم الزوار</td>
+    <td class="tg-0pky">تقييم الزوار<p id="rating-f"><span class="star-rating"></span></p></td>
   </tr>
 
 
@@ -185,7 +185,7 @@
             $('#category').text('' + foundBook[4]);
             
             // Display pages
-            $('#pages').text('' + foundBook[5]);
+            $('#pages').text('' + foundBook[3]);
 
             // Display review (if provided)
             if (foundBook[7]) {
@@ -194,8 +194,25 @@
               $('#review').text('لا توجد مراجعة حاليا.');
             }
 
+
+           // Get the rating value from column 3 (actual rating)
+            var ratingValue = parseInt(foundBook[10]);
+
+            // Create and display the star rating
+            var starRating = $('#rating-f .star-rating');
+            starRating.empty(); // Clear any existing stars
+
+            for (var i = 1; i <= ratingValue; i++) {
+              var star = $('<span>').addClass('star fa fa-star filled');
+              starRating.append(star);
+            }
+
+
+
+
+
             // Display summary
-            $('#summary').text('الملخص: ' + foundBook[7]);
+            $('#summary').text('' + foundBook[7]);
 
             // Get the rating value from column 3 (actual rating)
             var ratingValue = parseInt(foundBook[6]);
