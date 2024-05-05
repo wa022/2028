@@ -136,8 +136,8 @@
             // Display summary
             $('#summary').text('الملخص: ' + foundBook[6]);
 
-            // Get the rating value from column 6 (number of stars)
-            var ratingValue = parseInt(foundBook[6]);
+            // Get the rating value from column 3 (actual rating)
+            var ratingValue = parseInt(foundBook[3]);
 
             // Create and display the star rating
             var starRating = $('#rating .star-rating');
@@ -153,8 +153,8 @@
               starRating.append(star);
             }
 
-            // Get the number of images from foundBook[6]
-            var numImages = parseInt(foundBook[6]);
+            // Get the number of additional images from column 7
+            var numImages = parseInt(foundBook[7]);
 
             // Create and display the additional images container
             var imageContainer = $('#additional-images');
