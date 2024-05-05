@@ -1,62 +1,120 @@
 <!DOCTYPE html>
 <html lang="ar" dir="rtl">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>تفاصيل الكتاب</title>
-  <style>
-    /* ... Existing CSS styles ... */
-  </style>
-</head>
-<body>
-  <div id="loading-screen">
-    <img src="loading-image.jpg" alt="جاري التحميل">
-  </div>
-
-  <div id="book-details" class="hidden">
-    <h1>تفاصيل الكتاب</h1>
-    <h2 id="book-title"></h2>
-    <img id="book-cover" src="" alt="غلاف الكتاب">
-    <p id="author"></p>
-    <p id="category"></p>
-    <p id="review"></p>
-    <p id="summary"></p>
-    <div id="additional-images"></div>
-  </div>
-
-  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
-  <script>
-    $(document).ready(function(){
-      // ... Existing code to retrieve book title and data ...
-
-      if(foundBook){
-        // ... Existing code to display book details ...
-
-        // Get the number of images from foundBook[6]
-        var numImages = parseInt(foundBook[6]);
-
-        // Create and display the additional images container
-        var imageContainer = $('#additional-images');
-        imageContainer.empty(); // Clear any existing images
-
-        // Add the specified number of images
-        for (var i = 0; i < numImages; i++) {
-          var image = $('<img>');
-          image.attr('src', 'https://www.wheeliebinnumber.co.uk/wp-content/uploads/2016/09/O-1.jpg');
-          image.css('width', '515px');
-          image.css('height', '515px');
-          image.css('margin-bottom', '10px');
-          imageContainer.append(image);
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>تفاصيل الكتاب</title>
+    <style>
+        /* Loading screen styles */
+        #loading-screen {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: #f5f2e6; /* Orange background */
+            display: flex;
+            justify-content: center;
+            align-items: center;
         }
 
-        // Hide loading screen and fade in book details
-        $('#loading-screen').fadeOut('slow', function(){
-          $('#book-details').fadeIn('slow');
+        #loading-screen img {
+            width: 50%;
+            max-width: 200px;
+            animation: spin 2s linear infinite;
+        }
+
+        @keyframes spin {
+            0% {
+                transform: rotate(0deg);
+            }
+            100% {
+                transform: rotate(360deg);
+            }
+        }
+
+        /* Book details styles */
+        #book-details {
+            /* Existing styles remain the same */
+        }
+
+        .hidden {
+            display: none;
+        }
+    </style>
+</head>
+<body>
+    <div id="loading-screen">
+        <img src="loading-image.jpg" alt="جاري التحميل">
+    </div>
+
+    <div id="book-details" class="hidden">
+        <h1>تفاصيل الكتاب</h1>
+        <h2 id="book-title"></h2>
+        <img id="book-cover" src="" alt="غلاف الكتاب">
+        <p id="author"></p>
+        <p id="category"></p>
+        <p id="review"></p>
+        <p id="summary"></p>
+        <div id="star-rating"></div> <!-- This is where the star images will be displayed -->
+    </div>
+
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <script>
+        $(document).ready(function(){
+            // Retrieve book title from URL parameters
+            var urlParams = new URLSearchParams(window.location.search);
+            var bookTitle = decodeURIComponent(urlParams.get('title'));
+
+            // Fetch book data from the specified data source
+            $.ajax({
+                url: "https://sheets.googleapis.com/v4/spreadsheets/1eFNyOTc1sjFwoBYA5FzB4f-ecGs0w-COjOZ_mXLWBbo/values/Sheet1!A1:I100?key=AIzaSyBhiqVypmyLHYPmqZYtvdSvxEopcLZBdYU",
+                method: "GET",
+                success: function(data){
+                    var books = data.values;
+                    books.shift(); 
+
+                    // Find the book using its title
+                    var foundBook = books.find(function(book){
+                        return book[0] === bookTitle;
+                    });
+
+                    // Display book details if found
+                    if(foundBook){
+                        // Display book details
+                        $('#book-title').text(foundBook[0]);
+                        $('#book-cover').attr('src', foundBook[1]);
+                        $('#author').text('اسم الكاتب: ' + foundBook[2]);
+                        $('#category').text('النوع: ' + foundBook[4]);
+                        $('#review').text('مراجعتي: ' + foundBook[7]);
+                        $('#summary').text('الملخص: ' + foundBook[6]);
+
+                        // Determine the number of star images to display based on the value in foundBook[8]
+                        var starRating = parseInt(foundBook[9]);
+                        
+                        // Clear any existing star images
+                        $('#star-rating').empty();
+                        
+                        // Add star images based on the starRating value
+                        for (var i = 0; i < starRating; i++) {
+                            $('#star-rating').append('<img src="star.jpg" alt="نجمة" width="50" height="50">');
+                        }
+
+                        // Hide loading screen and fade in book details
+                        $('#loading-screen').fadeOut('slow', function(){
+                            $('#book-details').fadeIn('slow');
+                        });
+                    } else {
+                        // Handle book not found case
+                        $('#book-details').html('<p>لم يتم العثور على تفاصيل الكتاب.</p>');
+                    }
+                },
+                error: function(){
+                    // Handle error fetching book data
+                    $('#book-details').html('<p>حدث خطأ أثناء جلب تفاصيل الكتاب.</p>');
+                }
+            });
         });
-      } else {
-        // ... Handle book not found case ...
-      }
-    });
-  </script>
+    </script>
 </body>
 </html>
