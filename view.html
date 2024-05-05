@@ -131,16 +131,16 @@
 
             // Display review (if provided)
             if (foundBook[7]) {
-              $('#review').text('مراجعتي: ' + foundBook[6]);
+              $('#review').text('مراجعتي: ' + foundBook[8]);
             } else {
               $('#review').text('لا توجد مراجعة حاليا.');
             }
 
             // Display summary
-            $('#summary').text('الملخص: ' + foundBook[6]);
+            $('#summary').text('الملخص: ' + foundBook[7]);
 
             // Get the rating value from column 3 (actual rating)
-            var ratingValue = parseInt(foundBook[5]);
+            var ratingValue = parseInt(foundBook[6]);
 
             // Create and display the star rating
             var starRating = $('#rating .star-rating');
@@ -152,7 +152,7 @@
             }
 
             // Get the number of additional images from column 7
-            var numImages = parseInt(foundBook[6]);
+            var numImages = parseInt(foundBook[9]);
 
             // Create and display the additional images container
             var imageContainer = $('#additional-images');
