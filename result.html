@@ -130,6 +130,17 @@
         text-decoration: none;
     }
 
+.result-a {
+        text-decoration: none;
+    }
+
+.result-div {
+    margin-top: 15px;
+    margin-right: 15px;    }
+    
+
+}
+
     nav.open {
         display: flex;
         flex-direction: column;
@@ -220,39 +231,32 @@
     </header>
 
    
-        <h2>هل تقصد :</h2>
-    
+        
+       <div class="result-div">
+       <a href="#" class="result-a">الرئيسية</a> / <a>نتائج البحث</a>
+        <h3>هل تقصد :</h3>
+      </div>
+        <h1 id="search-results-heading"></h1> <!-- عبارة "نتائج البحث عن: [كلمة البحث]" -->
+
 
     <!-- المحتوى الآخر يأتي هنا -->
-    
-    
+  
     
     <div id="results-container" class="container"></div>
     
-    
+
 
     <script>
-      function toggleMenu() {
-        const nav = document.querySelector('nav');
-        const menuIcon = document.querySelector('.menu-icon');
-
-        nav.classList.toggle('open');
-
-        // تغيير الصورة بناءً على حالة القائمة
-        if (nav.classList.contains('open')) {
-            menuIcon.style.backgroundImage = "url('https://wa022.github.io/2028/left-arrow.png')";
-        } else {
-            menuIcon.style.backgroundImage = "url('https://wa022.github.io/2028/menu.png')";
-        }
-    }
-      
-      // الدالة لجلب الكتب المطابقة للبحث
+         // الدالة لجلب الكتب المطابقة للبحث
         function searchBooks() {
             // قراءة قيمة المعلمة من عنوان URL
             var searchQuery = new URLSearchParams(window.location.search).get('search');
 
             // إذا كانت قيمة المعلمة غير فارغة، قم بالبحث وعرض النتائج
             if (searchQuery) {
+                // عرض عبارة "نتائج البحث عن: [كلمة البحث]"
+                document.getElementById('search-results-heading').innerText = "نتائج البحث عن: " + searchQuery;
+
                 $.ajax({
                     url: "https://sheets.googleapis.com/v4/spreadsheets/1eFNyOTc1sjFwoBYA5FzB4f-ecGs0w-COjOZ_mXLWBbo/values/Sheet1!A1:I100?key=AIzaSyBhiqVypmyLHYPmqZYtvdSvxEopcLZBdYU",
                     method: "GET",
@@ -285,7 +289,7 @@
 
         // تنفيذ البحث عند تحميل الصفحة
         searchBooks();
-        
     </script>
 </body>
 </html>
+
