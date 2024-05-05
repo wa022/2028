@@ -253,7 +253,7 @@
             // إذا كانت قيمة المعلمة غير فارغة، قم بالبحث وعرض النتائج
             if (searchQuery) {
                 // عرض عبارة "نتائج البحث عن: [كلمة البحث]"
-                document.getElementById('search-results-heading').innerText = "نتائج البحث عن: " + searchQuery;
+                document.getElementById('search-results-heading').innerText = "هذه نتيجة البحث عن : " + searchQuery;
 
                 $.ajax({
                     url: "https://sheets.googleapis.com/v4/spreadsheets/1eFNyOTc1sjFwoBYA5FzB4f-ecGs0w-COjOZ_mXLWBbo/values/Sheet1!A1:I100?key=AIzaSyBhiqVypmyLHYPmqZYtvdSvxEopcLZBdYU",
