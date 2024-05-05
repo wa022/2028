@@ -51,12 +51,14 @@
     <div id="book-details" class="hidden">
         <h1>تفاصيل الكتاب</h1>
         <h2 id="book-title"></h2>
+        <div id="star-rating"></div> <!-- This is where the star images will be displayed -->
+
+
         <img id="book-cover" src="" alt="غلاف الكتاب">
         <p id="author"></p>
         <p id="category"></p>
         <p id="review"></p>
         <p id="summary"></p>
-        <div id="star-rating"></div> <!-- This is where the star images will be displayed -->
     </div>
 
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
@@ -97,7 +99,7 @@
                         
                         // Add star images based on the starRating value
                         for (var i = 0; i < starRating; i++) {
-                            $('#star-rating').append('<img src="star.jpg" alt="نجمة" width="50" height="50">');
+                            $('#star-rating').append('<img src="https://www.wheeliebinnumber.co.uk/wp-content/uploads/2016/09/O-1.jpg" alt="نجمة" width="50" height="50">');
                         }
 
                         // Hide loading screen and fade in book details
