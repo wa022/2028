@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="ar">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>نتائج البحث</title>
+</head>
+<body>
+    <div id="results-container" class="container"></div>
+
+    <script>
+        // الدالة لجلب الكتب المطابقة للبحث
+        function searchBooks() {
+            // قراءة قيمة المعلمة من عنوان URL
+            var searchQuery = new URLSearchParams(window.location.search).get('search');
+
+            // إذا كانت قيمة المعلمة غير فارغة، قم بالبحث وعرض النتائج
+            if (searchQuery) {
+                $.ajax({
+                    url: "https://sheets.googleapis.com/v4/spreadsheets/1eFNyOTc1sjFwoBYA5FzB4f-ecGs0w-COjOZ_mXLWBbo/values/Sheet1!A1:I100?key=AIzaSyBhiqVypmyLHYPmqZYtvdSvxEopcLZBdYU",
+                    method: "GET",
+                    success: function(data){
+                        var books = data.values;
+                        books.shift(); // إزالة الصف الأول (الذي يحتوي على عناوين الأعمدة)
+
+                        var output = '';
+                        books.forEach(function(book){
+                            var title = book[0].trim().toLowerCase(); // عنوان الكتاب
+
+                            // إذا كان عنوان الكتاب يحتوي على الكلمة المدخلة، قم بإضافته إلى النتائج
+                            if (title.includes(searchQuery)) {
+                                output += '<div class="book">';
+                                output += '<a style="text-decoration: none;" href="view.html?title=' + encodeURIComponent(book[0]) + '">';
+                                output += '<h3>' + book[0] + '</h3>'; // عنوان الكتاب
+                                output += '<img src="' + book[1] + '" alt="غلاف الكتاب">'; // غلاف الكتاب
+                                output += '</a>';
+                                output += '<button class="view-book-btn">مراجعتي للكتاب</button>';
+                                output += '</div>';
+                            }
+                        });
+
+                        // عرض النتائج في الصفحة
+                        $('#results-container').html(output);
+                    }
+                });
+            }
+        }
+
+        // تنفيذ البحث عند تحميل الصفحة
+        searchBooks();
+    </script>
+</body>
+</html>
