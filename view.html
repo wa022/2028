@@ -1,0 +1,263 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>تفاصيل الكتاب</title>
+  <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet">
+  <style>
+    /* Loading screen styles */
+    #loading-screen {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background-color: #f5f2e6; /* Orange background */
+      display: flex;
+      justify-content: center;
+      align-items: center;
+    }
+
+    #loading-screen img {
+      width: 30px;
+     height: 30px;
+      animation: spin 2s linear infinite;
+    }
+
+    @keyframes spin {
+      0% {
+        transform: rotate(0deg);
+      }
+      100% {
+        transform: rotate(360deg);
+      }
+    }
+
+    /* Book details styles */
+    #book-details {
+      display: none; /* Initially hidden */
+    }
+
+    .hidden {
+      display: none;
+    }
+
+    /* Star rating styles */
+    .star-rating {
+      display: inline-block;
+      width: 5em;
+      height: 1em;
+    }
+
+    .star-rating .star {
+      display: inline-block;
+      width: 1em;
+      height: 1em;
+      background-image: url('https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css'); /* Replace with actual URL */
+      background-repeat: no-repeat;
+      background-position: center;
+    }
+
+    .star-rating .star.filled {
+      color: gold; /* Color for filled stars */
+    }
+
+    /* Additional images styles */
+    #additional-images {
+      margin-top: 20px;
+    }
+
+    #additional-images img {
+      width: 50px;
+      height: 50px;
+      margin-bottom: 10px;
+    }
+    
+    
+    
+    .tg  {border-collapse:collapse;border-spacing:0;}
+.tg td{border-color:black;border-style:solid;border-width:1px;font-family:Arial, sans-serif;font-size:14px;
+  overflow:hidden;padding:10px 5px;word-break:normal;}
+.tg th{border-color:black;border-style:solid;border-width:1px;font-family:Arial, sans-serif;font-size:14px;
+  font-weight:normal;overflow:hidden;padding:10px 5px;word-break:normal;}
+.tg .tg-0pky{border-color:inherit;text-align:left;vertical-align:top}
+.tg .tg-0lax{text-align:left;vertical-align:top;}
+
+/* تعديل للتجاوب مع الشاشات الصغيرة */
+@media (max-width: 600px) {
+  .tg td {display: block;}
+  .tg td:nth-child(odd) {background-color: #f2f2f2;} /* تغيير لون خلفية الخلايا الفردية */
+}
+    
+    
+  </style>
+</head>
+<body>
+  <div id="loading-screen">
+    <img src="https://wa022.github.io/2028/loader.png" alt="جاري التحميل">
+  </div>
+
+  <div id="book-details" class="hidden">
+ 
+ 
+ 
+ <table style="width: 100%;" class="tg">
+<thead>
+  <tr>
+    <td style="width: 30%;"class="tg-0pky">
+    <h2 id="book-title"></h2>
+    </td>
+  </tr>
+  
+  
+   
+  <tr>
+    <td style="width: 30%;" class="tg-0pky" rowspan="5">
+    <img id="book-cover" src="" alt="غلاف الكتاب">
+    </td>
+  </tr>
+  
+  <tr>
+    <td class="tg-0pky">
+     <p id="author"></p>
+    </td>
+  </tr>
+  
+  <tr>
+    <td class="tg-0lax">
+عدد الصفحات
+</td>
+  </tr>
+  
+  <tr>
+    <td class="tg-0lax">
+    <p id="category"></p>
+    </td>
+  </tr>
+  
+  <tr>
+    <td class="tg-0lax">
+    <p id="rating"><span class="star-rating"></span></p>
+    </td>
+  </tr>
+  
+  
+  
+</thead>
+</table>
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+    <h2 id="book-title"></h2>
+    <img id="book-cover" src="" alt="غلاف الكتاب">
+    <p id="author"></p>
+    <p id="category"></p>
+    <p id="review"></p>
+    <p id="summary"></p>
+    <p id="rating"><span class="star-rating"></span></p>
+
+
+
+    <div id="additional-images"></div>
+  </div>
+
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+  <script>
+    $(document).ready(function(){
+      // Retrieve book title from URL parameters
+      var urlParams = new URLSearchParams(window.location.search);
+      var bookTitle = decodeURIComponent(urlParams.get('title'));
+
+      // Fetch book data from the specified data source
+      $.ajax({
+        url: "https://sheets.googleapis.com/v4/spreadsheets/1eFNyOTc1sjFwoBYA5FzB4f-ecGs0w-COjOZ_mXLWBbo/values/Sheet1!A1:I100?key=AIzaSyBhiqVypmyLHYPmqZYtvdSvxEopcLZBdYU",
+        method: "GET",
+        success: function(data){
+          var books = data.values;
+          books.shift();  
+
+          // Find the book using its title
+          var foundBook = books.find(function(book){
+            return book[0] === bookTitle;
+          });
+
+          // Display book details if found
+          if(foundBook){
+            // Display book title
+            $('#book-title').text(foundBook[0]);
+
+            // Display book cover (replace with actual image URL)
+            $('#book-cover').attr('src', foundBook[1]);
+
+            // Display author
+            $('#author').text('اسم الكاتب: ' + foundBook[2]);
+
+            // Display category
+            $('#category').text('النوع: ' + foundBook[4]);
+
+            // Display review (if provided)
+            if (foundBook[7]) {
+              $('#review').text('مراجعتي: ' + foundBook[8]);
+            } else {
+              $('#review').text('لا توجد مراجعة حاليا.');
+            }
+
+            // Display summary
+            $('#summary').text('الملخص: ' + foundBook[7]);
+
+            // Get the rating value from column 3 (actual rating)
+            var ratingValue = parseInt(foundBook[6]);
+
+            // Create and display the star rating
+            var starRating = $('#rating .star-rating');
+            starRating.empty(); // Clear any existing stars
+
+            for (var i = 1; i <= ratingValue; i++) {
+              var star = $('<span>').addClass('star fa fa-star filled');
+              starRating.append(star);
+            }
+
+            // Get the number of additional images from column 7
+            var numImages = parseInt(foundBook[9]);
+
+            // Create and display the additional images container
+            var imageContainer = $('#additional-images');
+            imageContainer.empty(); // Clear any existing images
+
+            // Add the specified number of images (replace with actual image URL)
+            for (var i = 0; i < numImages; i++) {
+              var image = $('<img>');
+              image.attr('src', 'https://www.wheeliebinnumber.co.uk/wp-content/uploads/2016/09/O-1.jpg'); // Replace with actual image URL
+              image.css('width', '515px');
+              image.css('height', '515px');
+              image.css('margin-bottom', '10px');
+              imageContainer.append(image);
+            }
+
+            // Hide loading screen and fade in book details
+            $('#loading-screen').fadeOut('slow', function(){
+              $('#book-details').fadeIn('slow');
+            });
+          } else {
+            // Handle book not found case
+            $('#book-details').html('<p>لم يتم العثور على تفاصيل الكتاب.</p>');
+            $('#loading-screen').fadeOut('slow');
+          }
+        },
+        error: function(){
+          // Handle errors during data fetching
+          $('#book-details').html('<p>حدث خطأ أثناء جلب تفاصيل الكتاب.</p>');
+          $('#loading-screen').fadeOut('slow');
+        }
+      });
+    });
+  </script>
+</body>
+</html>
+
