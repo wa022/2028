@@ -128,7 +128,7 @@
 
             // Display review (if provided)
             if (foundBook[7]) {
-              $('#review').text('مراجعتي: ' + foundBook[7]);
+              $('#review').text('مراجعتي: ' + foundBook[6]);
             } else {
               $('#review').text('لا توجد مراجعة حاليا.');
             }
@@ -137,7 +137,7 @@
             $('#summary').text('الملخص: ' + foundBook[6]);
 
             // Get the rating value from column 3 (actual rating)
-            var ratingValue = parseInt(foundBook[3]);
+            var ratingValue = parseInt(foundBook[6]);
 
             // Create and display the star rating
             var starRating = $('#rating .star-rating');
