@@ -77,15 +77,18 @@
     
     
     .tg {border-collapse:collapse;border-spacing:0;}
-.tg td, .tg th {border-color:black;border-style:solid;border-width:1px;font-family:Arial, sans-serif;font-size:14px;
-  overflow:hidden;padding:10px 5px;word-break:normal;}
-.tg .tg-0pky{border-color:inherit;text-align:left;vertical-align:top}
-.tg .tg-0lax{text-align:left;vertical-align:top;}
-
+.tg td, .tg th {border-color:black;border-style:solid;border-width:1px;font-family:Arial, sans-serif;font-size:14px;overflow:hidden;padding:10px 5px;word-break:normal;}
+.tg .tg-0pky{border-color:inherit;text-align:center;vertical-align:top}
+.tg .tg-0lax{text-align:center;vertical-align:top;}
 /* تعديل للتجاوب مع الشاشات الصغيرة */
+@media (min-width: 601px) {
+  .tg td:nth-child(1), .tg th:nth-child(1) {width: 30%; text-align: center;}
+  .tg td:nth-child(2), .tg th:nth-child(2) {width: 70%; text-align: right;}
+}
+
 @media (max-width: 600px) {
-  .tg td, .tg th {display: block; text-align: right;} /* تعديل ليصطف العناصر على شكل عمود واحد */
-  .tg td:nth-child(odd), .tg th:nth-child(odd) {background-color: #f2f2f2;} /* تغيير لون خلفية الخلايا الفردية */
+  .tg td, .tg th {display: block; text-align: right;}
+  .tg td:nth-child(odd), .tg th:nth-child(odd) {background-color: #f2f2f2;}
 }
     
   </style>
@@ -98,10 +101,10 @@
   <div id="book-details" class="hidden">
  
  
- <table class="tg">
+ <table style="width: 100%;" class="tg">
 <thead>
   <tr>
-  <th class="tg-0lax"><h2 id="book-title"></h2></th>
+  <th  class="tg-0lax"><h2 id="book-title"></h2></th>
   
     <th class="tg-0pky"><p id="rating"><span class="star-rating"></span></p></th>
     
@@ -127,7 +130,6 @@
   </tr>
 </tbody>
 </table>
-
  
  
  
