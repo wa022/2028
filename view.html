@@ -149,6 +149,63 @@
     </table>
   </div>
 
+
+
+ <script>
+        function ارسال_التقييم() {
+            // استخراج عنوان الكتاب من الرابط
+            var رابط = window.location.href;
+            var بيانات = رابط.split("?title=")[1];
+            var اسم_الكتاب = decodeURIComponent(بيانات);
+
+            // بناء الرابط لجلب بيانات الكتاب
+            var رابط_بيانات_الكتاب = "https://sheets.googleapis.com/v4/spreadsheets/1eFNyOTc1sjFwoBYA5FzB4f-ecGs0w-COjOZ_mXLWBbo/values/Sheet1!A1:I100?key=AIzaSyBhiqVypmyLHYPmqZYtvdSvxEopcLZBdYU";
+
+            // البحث عن اسم الكتاب وإرسال التقييم
+            fetch(رابط_بيانات_الكتاب)
+            .then(function(response) {
+                return response.json();
+            })
+            .then(function(data) {
+                var البيانات = data.values;
+                for (var سطر = 1; سطر < البيانات.length; سطر++) {
+                    if (البيانات[سطر][0] == اسم_الكتاب) {
+                        var التقييم = document.getElementById("التقييم").value;
+                        البيانات[سطر][6] = التقييم;
+
+                        // إرسال البيانات مع التقييم الجديد
+                        fetch("https://script.google.com/macros/s/AKfycbyv9rfLmXT0Ry1zKwq9GPh0ZsjcIRCPnGmNwsDlDSITNwBHa6S35wiLKrs-jfxRd2Q/exec", {
+                            method: "POST",
+                            headers: {
+                                "Content-Type": "application/json"
+                            },
+                            body: JSON.stringify(البيانات)
+                        })
+                        .then(function(response) {
+                            alert("تم إرسال التقييم بنجاح!");
+                        })
+                        .catch(function(error) {
+                            console.error("حدث خطأ أثناء إرسال التقييم:", error);
+                        });
+
+                        break;
+                    }
+                }
+            })
+            .catch(function(error) {
+                console.error("حدث خطأ أثناء جلب بيانات الكتاب:", error);
+            });
+        }
+    </script>
+
+
+    <label for="التقييم">التقييم:</label>
+    <input type="number" id="التقييم" name="التقييم" min="1" max="5" required>
+    <button onclick="ارسال_التقييم()">إرسال</button>
+
+
+
+
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
   <script>
     $(document).ready(function(){
